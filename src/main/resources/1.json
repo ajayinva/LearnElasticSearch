@@ -1,0 +1,24 @@
+{
+  "business_address": "660 Sacramento St",
+  "business_city": "San Francisco",
+  "business_id": "2228",
+  "business_latitude": "37.793698",
+  "business_location": {
+    "type": "Point",
+    "coordinates": [
+      -122.403984,
+      37.793698
+    ]
+  },
+  "business_longitude": "-122.403984",
+  "business_name": "Tokyo Express",
+  "business_postal_code": "94111",
+  "business_state": "CA",
+  "inspection_date": "2016-02-04T00:00:00.000",
+  "inspection_id": "2228_20160204",
+  "inspection_type": "Routine",
+  "inspection_score":96,
+  "risk_category": "Low Risk",
+  "violation_description": "Unclean nonfood contact surfaces",
+  "violation_id": "2228_20160204_103142"
+}
