@@ -38,6 +38,7 @@ import org.elasticsearch.common.unit.ByteSizeValue;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.get.GetResult;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
@@ -76,7 +77,7 @@ public class App
     		//updateRequest(client);
     		//bulkRequestSimple(client);
     		//bulkRequestUsingBulkProcessor(client);
-    		simpleSearch(client);
+			matchPhraseQuery(client);
         } catch(Exception e) {
         	e.printStackTrace();
         } finally {
@@ -85,18 +86,31 @@ public class App
         	}
         }
     }
+	private void matchPhraseQuery(RestHighLevelClient client) throws Exception {
+		System.out.println("Running matchPhraseQuery");
+    	search(client,QueryBuilders.matchPhraseQuery("business_name", "TIO CHILOS GRILL") );
+	}
+	/**
+	 *
+	 * @param client
+	 * @throws Exception
+	 */
+	private void matchQuery(RestHighLevelClient client) throws Exception {
+		System.out.println("Running Match Query");
+		search(client,QueryBuilders.matchQuery("business_name", "TIO") );
+	}
     /**
      * 
      * @param client
      * @throws Exception
      */
-    private void simpleSearch(RestHighLevelClient client) throws Exception {
+    private void search(RestHighLevelClient client, QueryBuilder qb) throws Exception {
     	SearchRequest searchRequest = new SearchRequest(INDEX_NAME); 
     	searchRequest.types(INDEX_TYPE); 
     	
     	SearchSourceBuilder sourceBuilder = new SearchSourceBuilder(); 
-    	sourceBuilder.query(QueryBuilders.queryStringQuery("CHILOS")); 
-    	sourceBuilder.from(0); 
+    	sourceBuilder.query(qb);
+    	sourceBuilder.from(0);
     	sourceBuilder.size(5); 
     	sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS)); 
     	sourceBuilder.sort(new ScoreSortBuilder().order(SortOrder.DESC)); 
